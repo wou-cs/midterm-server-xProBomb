@@ -5,12 +5,11 @@ app = Flask(__name__)
 @app.route("/api/calcs/<value>", methods=["GET"])
 def calculate(value):
     try:
-        if value is not type(int):
-            raise ValueError
-        num = value
-        if num <= 0:
-            raise ValueError
+        num = int(value)
     except ValueError:
+        return {}, 400
+
+    if num <= 0:
         return {}, 404
 
     return {
